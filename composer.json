@@ -1,0 +1,39 @@
+{
+    "name": "ddelrio1986/ninja-authorization",
+    "description": "This is a ZF2 module that will provide an authorization layer to a ZF2 application. It offers functionality for persisting a Zend\Permisions\Acl implementation to the database, loading the ACL for a given user ID, and querying against the ACL for the currently authenticated user.",
+    "type": "library",
+    "homepage": "https://github.com/ddelrio1986/NinjaAuthorization",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Del Rio",
+            "email": "ddelrio1986@gmail.com",
+            "homepage": "https://github.com/ddelrio1986",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "ddelrio1986@gmail.com",
+        "issues": "https://github.com/ddelrio1986/NinjaAuthorization/issues",
+        "wiki": "https://github.com/ddelrio1986/NinjaAuthorization/wiki",
+        "source": "https://github.com/ddelrio1986/NinjaAuthorization"
+    },
+    "keywords": [
+        "zf2",
+        "acl",
+        "authorization"
+    ],
+    "autoload": {
+        "psr-0": {
+            "NinjaAuthorization\\": "src/",
+            "NinjaAuthorizationTest\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "dev-master",
+        "doctrine/doctrine-orm-module": "dev-master",
+        "ddelrio1986/ninja-service-layer": "dev-master"
+    }
+}
