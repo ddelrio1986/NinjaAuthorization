@@ -1,4 +1,7 @@
 .buildpath
 .project
 .settings
+.DS_Store
+.idea
+*.swp
 composer.lock
