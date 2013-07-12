@@ -4,7 +4,6 @@
  *
  * This is the module class for the NinjaAuthorization module.
  *
- * @author Daniel Del Rio <jesusfreakdelrio@gmail.com>
  * @package NinjaAuthorization
  * @filesource
  */
@@ -16,7 +15,6 @@ namespace NinjaAuthorization;
  *
  * This is the module class for the NinjaAuthorization module.
  *
- * @author Daniel Del Rio <jesusfreakdelrio@gmail.com>
  * @package NinjaAuthorization
  */
 class Module
@@ -27,7 +25,6 @@ class Module
      *
      * Get the autoloader configuration for this module.
      *
-     * @author Daniel Del Rio <jesusfreakdelrio@gmail.com>
      * @return array The autoloader configuration for this module.
      */
     public function getAutoloaderConfig()
@@ -49,7 +46,6 @@ class Module
      *
      * Get the configuration for this module.
      *
-     * @author Daniel Del Rio <jesusfreakdelrio@gmail.com>
      * @return array The configuration for this module.
      */
     public function getConfig()

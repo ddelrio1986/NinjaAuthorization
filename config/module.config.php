@@ -1,14 +1,15 @@
 <?php
-/**
- * Module Configuration
- *
- * Contains the configuration for this module.
- *
- * @author Daniel Del Rio <jesusfreakdelrio@gmail.com>
- * @package NinjaAuthorization
- * @filesource
- */
 
 namespace NinjaAuthorization;
 
-return array();
+return array(
+    'service_manager' => array(
+        'invokables' => array(
+            __NAMESPACE__ . '\Entity\Permission' => __NAMESPACE__ . '\Entity\Permission',
+            __NAMESPACE__ . '\Entity\Privilege' => __NAMESPACE__ . '\Entity\Privilege',
+            __NAMESPACE__ . '\Entity\Resource' => __NAMESPACE__ . '\Entity\Resource',
+            __NAMESPACE__ . '\Entity\Role' => __NAMESPACE__ . '\Entity\Role',
+            __NAMESPACE__ . '\Entity\RoleAssignment' => __NAMESPACE__ . '\Entity\RoleAssignment',
+        ),
+    ),
+);
