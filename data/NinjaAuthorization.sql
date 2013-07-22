@@ -7,7 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 -- Table `user`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `user` (
-  `id` INT NULL AUTO_INCREMENT ,
+  `id` INT UNSIGNED NULL AUTO_INCREMENT ,
   `deleted` TINYINT(1) NOT NULL DEFAULT 0 ,
   `date_added` DATETIME NOT NULL ,
   `date_modified` DATETIME NOT NULL ,
@@ -19,8 +19,8 @@ ENGINE = InnoDB;
 -- Table `role`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `role` (
-  `id` INT NULL AUTO_INCREMENT ,
-  `parent_role_id` INT NULL DEFAULT NULL ,
+  `id` INT UNSIGNED NULL AUTO_INCREMENT ,
+  `parent_role_id` INT UNSIGNED NULL DEFAULT NULL ,
   `name` VARCHAR(25) NOT NULL ,
   `deleted` TINYINT(1) NOT NULL DEFAULT 0 ,
   `date_added` DATETIME NOT NULL ,
@@ -39,9 +39,9 @@ ENGINE = InnoDB;
 -- Table `role_assignment`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `role_assignment` (
-  `id` INT NULL AUTO_INCREMENT ,
-  `user_id` INT NOT NULL ,
-  `role_id` INT NOT NULL ,
+  `id` INT UNSIGNED NULL AUTO_INCREMENT ,
+  `user_id` INT UNSIGNED NOT NULL ,
+  `role_id` INT UNSIGNED NOT NULL ,
   `deleted` TINYINT(1) NOT NULL DEFAULT 0 ,
   `date_added` DATETIME NOT NULL ,
   `date_modified` DATETIME NOT NULL ,
@@ -63,7 +63,7 @@ ENGINE = InnoDB;
 -- Table `resource`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `resource` (
-  `id` INT NULL AUTO_INCREMENT ,
+  `id` INT UNSIGNED NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `deleted` TINYINT(1) NOT NULL DEFAULT 0 ,
   `date_added` DATETIME NOT NULL ,
@@ -77,7 +77,7 @@ ENGINE = InnoDB;
 -- Table `privilege`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `privilege` (
-  `id` INT NULL AUTO_INCREMENT ,
+  `id` INT UNSIGNED NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `deleted` TINYINT(1) NOT NULL DEFAULT 0 ,
   `date_added` DATETIME NOT NULL ,
@@ -91,11 +91,11 @@ ENGINE = InnoDB;
 -- Table `permission`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `permission` (
-  `id` INT NULL AUTO_INCREMENT ,
-  `role_id` INT NULL DEFAULT NULL ,
-  `user_id` INT NULL DEFAULT NULL ,
-  `resource_id` INT NULL DEFAULT NULL ,
-  `privilege_id` INT NULL DEFAULT NULL ,
+  `id` INT UNSIGNED NULL AUTO_INCREMENT ,
+  `role_id` INT UNSIGNED NULL DEFAULT NULL ,
+  `user_id` INT UNSIGNED NULL DEFAULT NULL ,
+  `resource_id` INT UNSIGNED NULL DEFAULT NULL ,
+  `privilege_id` INT UNSIGNED NULL DEFAULT NULL ,
   `deleted` TINYINT(1) NOT NULL DEFAULT 0 ,
   `date_added` DATETIME NOT NULL ,
   `date_modified` DATETIME NOT NULL ,
