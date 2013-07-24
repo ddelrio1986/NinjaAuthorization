@@ -24,6 +24,8 @@ return array(
             __NAMESPACE__ . '\Entity\Resource' => __NAMESPACE__ . '\Entity\Resource',
             __NAMESPACE__ . '\Entity\Role' => __NAMESPACE__ . '\Entity\Role',
             __NAMESPACE__ . '\Entity\RoleAssignment' => __NAMESPACE__ . '\Entity\RoleAssignment',
+            __NAMESPACE__ . '\Service\Acl' => __NAMESPACE__ . '\Service\Acl',
+            'ZFAcl' => 'Zend\Permissions\Acl\Acl',
         ),
     ),
 );
