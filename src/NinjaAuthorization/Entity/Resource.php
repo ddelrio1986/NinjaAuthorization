@@ -20,6 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package NinjaAuthorization\Entity
  * @ORM\Entity(repositoryClass="NinjaAuthorization\Service\Resource")
+ * @ORM\Table(name="resource")
  */
 class Resource extends AbstractEntity
 {

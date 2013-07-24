@@ -20,6 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package NinjaAuthorization\Entity
  * @ORM\Entity(repositoryClass="NinjaAuthorization\Service\Role")
+ * @ORM\Table(name="role")
  */
 class Role extends AbstractEntity
 {
@@ -75,6 +76,7 @@ class Role extends AbstractEntity
      *
      * @var null|Role The Role entity that is the parent of this Role entity
      * @ORM\ManyToOne(targetEntity="Role", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_role_id", referencedColumnName="id")
      */
     protected $parent;
 

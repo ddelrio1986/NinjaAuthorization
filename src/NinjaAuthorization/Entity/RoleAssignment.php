@@ -19,6 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package NinjaAuthorization\Entity
  * @ORM\Entity(repositoryClass="NinjaAuthorization\Service\RoleAssignment")
+ * @ORM\Table(name="role_assignment")
  */
 class RoleAssignment extends AbstractEntity
 {
@@ -52,8 +53,8 @@ class RoleAssignment extends AbstractEntity
      *
      * The User entity associated with this RoleAssignment entity.
      *
-     * @var User The User entity associated with this RoleAssignment entity.
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="roleAssignments")
+     * @var UserInterface The User entity associated with this RoleAssignment entity.
+     * @ORM\ManyToOne(targetEntity="UserInterface", inversedBy="roleAssignments")
      */
     protected $user;
 
@@ -128,7 +129,7 @@ class RoleAssignment extends AbstractEntity
      *
      * Gets the User entity that this RoleAssignment entity is associated with.
      *
-     * @return User The User entity that this RoleAssignment entity is associated with.
+     * @return UserInterface The User entity that this RoleAssignment entity is associated with.
      */
     public function getUser()
     {
@@ -140,10 +141,10 @@ class RoleAssignment extends AbstractEntity
      *
      * Sets the User entity that this RoleAssignment entity should be associated with.
      *
-     * @param User $user The User entity that this RoleAssignment entity should be associated with.
+     * @param UserInterface $user The User entity that this RoleAssignment entity should be associated with.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function setUser(User $user)
+    public function setUser(UserInterface $user)
     {
         $user->addRoleAssignment($this);
         $this->user = $user;

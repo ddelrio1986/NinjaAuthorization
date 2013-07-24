@@ -19,6 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package NinjaAuthorization\Entity
  * @ORM\Entity(repositoryClass="NinjaAuthorization\Service\Permission")
+ * @ORM\Table(name="permission")
  */
 class Permission extends AbstractEntity
 {
@@ -82,8 +83,8 @@ class Permission extends AbstractEntity
      *
      * The User entity that this Permission entity is associated with.
      *
-     * @var User The User entity that this Permission entity is associated with.
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="permissions")
+     * @var UserInterface The UserInterface entity that this Permission entity is associated with.
+     * @ORM\ManyToOne(targetEntity="UserInterface", inversedBy="permissions")
      */
     protected $user;
 
@@ -261,7 +262,7 @@ class Permission extends AbstractEntity
      *
      * Gets the User entity that this Permission entity is associated with.
      *
-     * @return User The User entity that this Permission entity is associated with.
+     * @return UserInterface The User entity that this Permission entity is associated with.
      */
     public function getUser()
     {
@@ -273,10 +274,10 @@ class Permission extends AbstractEntity
      *
      * Sets the User entity that this Permission entity should be associated with.
      *
-     * @param null|User $user The User entity that this Permission entity should be associated with.
+     * @param null|UserInterface $user The User entity that this Permission entity should be associated with.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function setUser(User $user = null)
+    public function setUser(UserInterface $user = null)
     {
         if (null !== null) {
             $user->addPermission($this);
