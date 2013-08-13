@@ -19,7 +19,6 @@ use Doctrine\ORM\Mapping as ORM;
  * This is the Role entity.
  *
  * @package NinjaAuthorization\Entity
- * @ORM\Entity(repositoryClass="NinjaAuthorization\Service\Role")
  * @ORM\Table(name="role")
  */
 class Role extends AbstractEntity
@@ -55,7 +54,7 @@ class Role extends AbstractEntity
      * The RoleAssignment entities that this Role entity is associated with.
      * 
      * @var RoleAssignment[] The RoleAssignment entities that this Role entity is associated with.
-     * @ORM\OneToMany(targetEntity="RoleAssignment", mappedBy="role")
+     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\RoleAssignment", mappedBy="role")
      */
     protected $roleAssignments;
     
@@ -65,7 +64,7 @@ class Role extends AbstractEntity
      * The Permission entities that this Role entity is associated with.
      * 
      * @var Permission[] The Permission entities that this Role entity is associated with.
-     * @ORM\OneToMany(targetEntity="Permission", mappedBy="role")
+     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\Permission", mappedBy="role")
      */
     protected $permissions;
 
@@ -75,7 +74,7 @@ class Role extends AbstractEntity
      * The Role entity that is the parent of this Role entity.
      *
      * @var null|Role The Role entity that is the parent of this Role entity
-     * @ORM\ManyToOne(targetEntity="Role", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="NinjaAuthorization\Entity\Role", inversedBy="children")
      * @ORM\JoinColumn(name="parent_role_id", referencedColumnName="id")
      */
     protected $parent;
@@ -86,7 +85,7 @@ class Role extends AbstractEntity
      * The Role entities that this Role entity is a parent of.
      *
      * @var Role[] The Role entities that this Role entity is a parent of.
-     * @ORM\OneToMany(targetEntity="Role", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\Role", mappedBy="parent")
      */
     protected $children;
 
