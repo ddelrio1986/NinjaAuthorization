@@ -66,6 +66,16 @@ class Permission extends AbstractEntity
      */
     protected $privilegeId;
 
+    /**
+     * Allow
+     *
+     * Whether or not the permission is for allowing something or denying something.
+     *
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    protected $allow = true;
+
 // Properties representing associations with other entities.
 
     /**
@@ -223,6 +233,32 @@ class Permission extends AbstractEntity
             $privilegeId = (int)$privilegeId;
         }
         $this->privilegeId = $privilegeId;
+        return $this;
+    }
+
+    /**
+     * Get Allow
+     *
+     * Gets whether this permission is for allowing something or denying something.
+     *
+     * @return bool Whether this permission is for allowing something or denying something.
+     */
+    public function getAllow()
+    {
+        return $this->allow;
+    }
+
+    /**
+     * Set Allow
+     *
+     * Sets whether this permission is for allowing something or denying something.
+     *
+     * @param bool $allow Whether this permission is for allowing something or denying something.
+     * @return self Returns itself to allow for a fluent interface.
+     */
+    public function setAllow($allow = true)
+    {
+        $this->allow = (bool)$allow;
         return $this;
     }
 
