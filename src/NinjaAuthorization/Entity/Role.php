@@ -19,6 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * This is the Role entity.
  *
  * @package NinjaAuthorization\Entity
+ * @ORM\Entity(repositoryClass="NinjaAuthorization\Service\Role")
  * @ORM\Table(name="role")
  */
 class Role extends AbstractEntity
