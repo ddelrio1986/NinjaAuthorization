@@ -158,7 +158,11 @@ class Acl extends AbstractService
             $resource = ($permission->getResource()) ? $permission->getResource()->getName() : null;
             $privilege = ($permission->getPrivilege()) ? $permission->getPrivilege()->getName() : null;
 
-            $acl->allow($role, $resource, $privilege);
+            if ($permission->getAllow()) {
+                $acl->allow($role, $resource, $privilege);
+            } else {
+                $acl->deny($role, $resource, $privilege);
+            }
         }
     }
 
@@ -217,7 +221,11 @@ class Acl extends AbstractService
             $resource = ($permission->getResource()) ? $permission->getResource()->getName() : null;
             $privilege = ($permission->getPrivilege()) ? $permission->getPrivilege()->getName() : null;
 
-            $acl->allow(self::CURRENT_USER_ROLE, $resource, $privilege);
+            if ($permission->getAllow()) {
+                $acl->allow(self::CURRENT_USER_ROLE, $resource, $privilege);
+            } else {
+                $acl->deny(self::CURRENT_USER_ROLE, $resource, $privilege);
+            }
         }
     }
 }
