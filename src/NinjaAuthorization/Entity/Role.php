@@ -181,9 +181,7 @@ class Role extends AbstractEntity
      */
     public function addRoleAssignment(RoleAssignment $roleAssignment)
     {
-        $roleAssignment->setRoleId($this->getId());
-        $roleAssignment->setRole($this);
-        $this->roleAssignment[] = $roleAssignment;
+        $this->roleAssignments[] = $roleAssignment;
         return $this;
     }
     
@@ -209,8 +207,6 @@ class Role extends AbstractEntity
      */
     public function addPermission(Permission $permission)
     {
-        $permission->setRoleId($this->getId());
-        $permission->setRole($this);
         $this->permissions[] = $permission;
         return $this;
     }
@@ -266,8 +262,6 @@ class Role extends AbstractEntity
      */
     public function addChild(Role $child)
     {
-        $child->setParentId($this->getId());
-        $child->setParent($this);
         $this->children[] = $child;
         return $this;
     }
