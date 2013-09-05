@@ -75,7 +75,7 @@ class Acl extends AbstractService
 
         // Get all of the roles.
         $serviceLocator = $this->getServiceLocator();
-        $roleService = $serviceLocator->get('NinjaAuthorization\Service\RoleEntityService');
+        $roleService = $serviceLocator->get('RoleService');
         $roles = $roleService->findBy(array('deleted' => false), array('id' => 'ASC'));
 
         // Add the roles to the acl object.
@@ -101,7 +101,7 @@ class Acl extends AbstractService
 
         // Get all of the resources.
         $serviceLocator = $this->getServiceLocator();
-        $resourceService = $serviceLocator->get('NinjaAuthorization\Service\ResourceEntityService');
+        $resourceService = $serviceLocator->get('ResourceService');
         $resources = $resourceService->findBy(array('deleted' => false), array('id' => 'ASC'));
 
         // Add the resources to the acl.
@@ -126,7 +126,7 @@ class Acl extends AbstractService
 
         // Get the permissions to add.
         $serviceLocator = $this->getServiceLocator();
-        $permissionService = $serviceLocator->get('NinjaAuthorization\Service\PermissionEntityService');
+        $permissionService = $serviceLocator->get('PermissionService');
         $permissions = $permissionService->findBy(array('deleted' => false, 'userId' => null,), array('id' => 'ASC'));
 
         // Add the permissions.
@@ -159,7 +159,7 @@ class Acl extends AbstractService
 
         // Get the roles that user is assigned to.
         $serviceLocator = $this->getServiceLocator();
-        $roleAssignmentService = $serviceLocator->get('NinjaAuthorization\Service\RoleAssignmentEntityService');
+        $roleAssignmentService = $serviceLocator->get('RoleAssignmentService');
         $roleAssignments = $roleAssignmentService->findBy(
             array('userId' => $userId, 'deleted' => false),
             array('id' => 'ASC')
@@ -190,7 +190,7 @@ class Acl extends AbstractService
 
         // Get the permissions for the user.
         $serviceLocator = $this->getServiceLocator();
-        $permissionService = $serviceLocator->get('NinjaAuthorization\Service\PermissionEntityService');
+        $permissionService = $serviceLocator->get('PermissionService');
         $permissions = $permissionService->findBy(
             array('userId' => $userId, 'deleted' => false),
             array('id' => 'ASC')
