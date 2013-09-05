@@ -43,7 +43,7 @@ class Acl extends AbstractService
 
         // Create a new ACL object.
         $serviceLocator = $this->getServiceLocator();
-        $acl = $serviceLocator->get('ZFAcl'); /** @var \Zend\Permissions\Acl\Acl $acl */
+        $acl = $serviceLocator->get('ZFAcl');
 
         // Add all of the roles to the Acl object.
         $this->addAllRoles($acl);
@@ -75,18 +75,11 @@ class Acl extends AbstractService
 
         // Get all of the roles.
         $serviceLocator = $this->getServiceLocator();
-        $roleService = $serviceLocator->get('NinjaAuthorization\Service\RoleEntityService'); /** @var Role $roleService */
-        $roles = $roleService->findBy(
-            array(
-                'deleted' => false,
-            ),
-            array(
-                'id' => 'ASC',
-            )
-        );
+        $roleService = $serviceLocator->get('NinjaAuthorization\Service\RoleEntityService');
+        $roles = $roleService->findBy(array('deleted' => false), array('id' => 'ASC'));
 
         // Add the roles to the acl object.
-        foreach ($roles as $role) { /** @var \NinjaAuthorization\Entity\Role $role */
+        foreach ($roles as $role) {
             $zfRole = new ZFRole($role->getName());
             $parents = array();
             if ($role->getParent()) {
@@ -108,18 +101,11 @@ class Acl extends AbstractService
 
         // Get all of the resources.
         $serviceLocator = $this->getServiceLocator();
-        $resourceService = $serviceLocator->get('NinjaAuthorization\Service\ResourceEntityService'); /** @var \NinjaAuthorization\Service\Resource $resourceService */
-        $resources = $resourceService->findBy(
-            array(
-                'deleted' => false,
-            ),
-            array(
-                'id' => 'ASC',
-            )
-        );
+        $resourceService = $serviceLocator->get('NinjaAuthorization\Service\ResourceEntityService');
+        $resources = $resourceService->findBy(array('deleted' => false), array('id' => 'ASC'));
 
         // Add the resources to the acl.
-        foreach ($resources as $resource) { /** @var \NinjaAuthorization\Entity\Resource $resource */
+        foreach ($resources as $resource) {
             $zfResource = new ZFResource($resource->getName());
             $acl->addResource($zfResource);
         }
@@ -140,17 +126,8 @@ class Acl extends AbstractService
 
         // Get the permissions to add.
         $serviceLocator = $this->getServiceLocator();
-        /** @var \NinjaAuthorization\Service\Permission $permissionService */
         $permissionService = $serviceLocator->get('NinjaAuthorization\Service\PermissionEntityService');
-        $permissions = $permissionService->findBy(
-            array(
-                'deleted' => false,
-                'userId' => null,
-            ),
-            array(
-                'id' => 'ASC',
-            )
-        ); /** @var \NinjaAuthorization\Entity\Permission[] $permissions */
+        $permissions = $permissionService->findBy(array('deleted' => false, 'userId' => null,), array('id' => 'ASC'));
 
         // Add the permissions.
         foreach ($permissions as $permission) {
@@ -182,9 +159,7 @@ class Acl extends AbstractService
 
         // Get the roles that user is assigned to.
         $serviceLocator = $this->getServiceLocator();
-        /** @var \NinjaAuthorization\Service\RoleAssignment $roleAssignmentService */
         $roleAssignmentService = $serviceLocator->get('NinjaAuthorization\Service\RoleAssignmentEntityService');
-        /** @var \NinjaAuthorization\Entity\RoleAssignment[] $roleAssignments */
         $roleAssignments = $roleAssignmentService->findBy(
             array('userId' => $userId, 'deleted' => false),
             array('id' => 'ASC')
@@ -199,7 +174,14 @@ class Acl extends AbstractService
         $acl->addRole(new ZFRole(self::CURRENT_USER_ROLE), $parents);
     }
 
-
+    /**
+     * Add User Permissions
+     *
+     * Adds the permissions that were tied directly to the user.
+     *
+     * @param ZFAcl $acl The acl object to add the role to.
+     * @param int $userId The ID of the user.
+     */
     public function addUserPermissions(ZFAcl $acl, $userId)
     {
 
@@ -208,9 +190,7 @@ class Acl extends AbstractService
 
         // Get the permissions for the user.
         $serviceLocator = $this->getServiceLocator();
-        /** @var \NinjaAuthorization\Service\Permission $permissionService */
         $permissionService = $serviceLocator->get('NinjaAuthorization\Service\PermissionEntityService');
-        /** @var \NinjaAuthorization\Entity\Permission[] $permissions */
         $permissions = $permissionService->findBy(
             array('userId' => $userId, 'deleted' => false),
             array('id' => 'ASC')
