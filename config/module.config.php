@@ -34,17 +34,25 @@ return array(
             'PermissionService' => function ($serviceLocator) {
                 return $serviceLocator->get(__NAMESPACE__ . '\Service\PermissionEntityService');
             },
+            'PrivilegeService' => function ($serviceLocator) {
+                return $serviceLocator->get(__NAEMSPACE__ . '\Service\PrivilegeEntityService');
+            },
             'ResourceService' => function ($serviceLocator) {
                 return $serviceLocator->get(__NAMESPACE__ . '\Service\ResourceEntityService');
-            },
-            'RoleAssignmentService' => function ($serviceLocator) {
-                return $serviceLocator->get(__NAMESPACE__ . '\Service\RoleAssignmentEntityService');
             },
             'RoleService' => function ($serviceLocator) {
                 return $serviceLocator->get(__NAMESPACE__ . '\Service\RoleEntityService');
             },
+            'RoleAssignmentService' => function ($serviceLocator) {
+                return $serviceLocator->get(__NAMESPACE__ . '\Service\RoleAssignmentEntityService');
+            },
         ),
         'invokables' => array(
+            __NAMESPACE__ . '\Entity\Permission' => __NAMESPACE__ . '\Entity\Permission',
+            __NAMESPACE__ . '\Entity\Privilege' => __NAMESPACE__ . '\Entity\Privilege',
+            __NAMESPACE__ . '\Entity\Resource' => __NAMESPACE__ . '\Entity\Resource',
+            __NAMESPACE__ . '\Entity\Role' => __NAMESPACE__ . '\Entity\Role',
+            __NAMESPACE__ . '\Entity\RoleAssignment' => __NAMESPACE__ . '\Entity\RoleAssignment',
             __NAMESPACE__ . '\Service\Acl' => __NAMESPACE__ . '\Service\Acl',
             'ZFAcl' => 'Zend\Permissions\Acl\Acl',
         ),
