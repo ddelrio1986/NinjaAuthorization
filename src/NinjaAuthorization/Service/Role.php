@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract Role
+ * Role
  *
  * This is the abstract role service which should be extended by the actual role service.
  *
@@ -11,13 +11,13 @@
 namespace NinjaAuthorization\Service;
 
 /**
- * Abstract Role
+ * Role
  *
  * This is the abstract role service which should be extended by the actual role service.
  *
  * @package NinjaAuthorization\Service
  */
-class AbstractRole extends AbstractEntityService
+class Role extends AbstractEntityService
 {
-    protected $entity = 'NinjaAuthorization\Entity\AbstractRole';
+    protected $entity = 'NinjaAuthorization\Entity\Role';
 }

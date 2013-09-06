@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract Resource
+ * Resource
  *
  * This is the abstract resource service which should be extended by the actual resource service.
  *
@@ -11,13 +11,13 @@
 namespace NinjaAuthorization\Service;
 
 /**
- * Abstract Resource
+ * Resource
  *
  * This is the abstract resource service which should be extended by the actual resource service.
  *
  * @package NinjaAuthorization\Service
  */
-class AbstractResource extends AbstractEntityService
+class Resource extends AbstractEntityService
 {
-    protected $entity = 'NinjaAuthorization\Entity\AbstractResource';
+    protected $entity = 'NinjaAuthorization\Entity\Resource';
 }

@@ -76,7 +76,7 @@ class Acl extends AbstractService
         // Get all of the roles.
         $serviceLocator = $this->getServiceLocator();
         $roleService = $serviceLocator->get('RoleService');
-        $roles = $roleService->findBy(array('deleted' => false), array('id' => 'ASC'));
+        $roles = $roleService->getNotDeleted();
 
         // Add the roles to the acl object.
         foreach ($roles as $role) {
@@ -102,7 +102,8 @@ class Acl extends AbstractService
         // Get all of the resources.
         $serviceLocator = $this->getServiceLocator();
         $resourceService = $serviceLocator->get('ResourceService');
-        $resources = $resourceService->findBy(array('deleted' => false), array('id' => 'ASC'));
+        $resource = $resourceService->getById(1);
+        $resources = $resourceService->getNotDeleted();
 
         // Add the resources to the acl.
         foreach ($resources as $resource) {
@@ -122,12 +123,13 @@ class Acl extends AbstractService
     {
 
         // Let admins do everything.
-        $acl->allow('admin');
-
-        // Get the permissions to add.
         $serviceLocator = $this->getServiceLocator();
+        $config = $serviceLocator->get('Config');
+        $acl->allow($config['ninja_authorization']['admin_role_name']);
+
+        // Get the permissions that are tied to a role and not to a user.
         $permissionService = $serviceLocator->get('PermissionService');
-        $permissions = $permissionService->findBy(array('deleted' => false, 'userId' => null,), array('id' => 'ASC'));
+        $permissions = $permissionService->getNotDeletedRolePermissions();
 
         // Add the permissions.
         foreach ($permissions as $permission) {
@@ -158,20 +160,27 @@ class Acl extends AbstractService
         $userId = (int)$userId;
 
         // Get the roles that user is assigned to.
-        $serviceLocator = $this->getServiceLocator();
-        $roleAssignmentService = $serviceLocator->get('RoleAssignmentService');
-        $roleAssignments = $roleAssignmentService->findBy(
-            array('userId' => $userId, 'deleted' => false),
-            array('id' => 'ASC')
-        );
+        if (0 !== $userId) {
+            $serviceLocator = $this->getServiceLocator();
+            $roleAssignmentService = $serviceLocator->get('RoleAssignmentService');
+            $roleAssignments = $roleAssignmentService->getNotDeletedByUserId($userId);
 
-        // Get the parent roles for the user.
-        $parents = array();
-        foreach ($roleAssignments as $roleAssignment) {
-            $parents[] = $roleAssignment->getRole()->getName();
+            // Get the parent roles for the user.
+            $parents = array();
+            foreach ($roleAssignments as $roleAssignment) {
+                $parents[] = $roleAssignment->getRole()->getName();
+            }
+
+            $acl->addRole(new ZFRole(self::CURRENT_USER_ROLE), $parents);
+        
+        // Setup user role for a guest.
+        } else {
+            $config = $this->getServiceLocator()->get('Config');
+            $acl->addRole(
+                new ZFRole(self::CURRENT_USER_ROLE),
+                array($config['ninja_authorization']['guest_role_name'])
+            );
         }
-
-        $acl->addRole(new ZFRole(self::CURRENT_USER_ROLE), $parents);
     }
 
     /**
@@ -188,23 +197,22 @@ class Acl extends AbstractService
         // Cleanse input.
         $userId = (int)$userId;
 
-        // Get the permissions for the user.
-        $serviceLocator = $this->getServiceLocator();
-        $permissionService = $serviceLocator->get('PermissionService');
-        $permissions = $permissionService->findBy(
-            array('userId' => $userId, 'deleted' => false),
-            array('id' => 'ASC')
-        );
+        if (0 !== $userId) {
 
-        // Add the permissions.
-        foreach ($permissions as $permission) {
-            $resource = ($permission->getResource()) ? $permission->getResource()->getName() : null;
-            $privilege = ($permission->getPrivilege()) ? $permission->getPrivilege()->getName() : null;
+            // Get the permissions for the user.
+            $permissionService = $this->getServiceLocator()->get('PermissionService');
+            $permissions = $permissionService->getNotDeletedByUserId($userId);
 
-            if ($permission->getAllow()) {
-                $acl->allow(self::CURRENT_USER_ROLE, $resource, $privilege);
-            } else {
-                $acl->deny(self::CURRENT_USER_ROLE, $resource, $privilege);
+            // Add the permissions.
+            foreach ($permissions as $permission) {
+                $resource = ($permission->getResource()) ? $permission->getResource()->getName() : null;
+                $privilege = ($permission->getPrivilege()) ? $permission->getPrivilege()->getName() : null;
+
+                if ($permission->getAllow()) {
+                    $acl->allow(self::CURRENT_USER_ROLE, $resource, $privilege);
+                } else {
+                    $acl->deny(self::CURRENT_USER_ROLE, $resource, $privilege);
+                }
             }
         }
     }

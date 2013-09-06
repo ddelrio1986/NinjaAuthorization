@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package NinjaAuthorization\Entity
  */
-class AbstractPrivilege extends AbstractEntity
+abstract class AbstractPrivilege extends AbstractEntity
 {
 
     /**
@@ -38,8 +38,8 @@ class AbstractPrivilege extends AbstractEntity
      *
      * The permissions that this privilege is associated with.
      *
-     * @var AbstractPermission[] The permissions that this privilege is associated with.
-     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\AbstractPermission", mappedBy="privilege")
+     * @var Permission[] The permissions that this privilege is associated with.
+     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\Permission", mappedBy="privilege")
      */
     protected $permissions;
 
@@ -84,7 +84,7 @@ class AbstractPrivilege extends AbstractEntity
      *
      * Gets the permissions associated with this privilege.
      *
-     * @return AbstractPermission[] The permissions associated with this privilege.
+     * @return Permission[] The permissions associated with this privilege.
      */
     public function getPermissions()
     {
@@ -96,10 +96,10 @@ class AbstractPrivilege extends AbstractEntity
      *
      * Adds a permission to this privilege.
      *
-     * @param AbstractPermission $permission The permission to add to this privilege.
+     * @param Permission $permission The permission to add to this privilege.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function addPermission(AbstractPermission $permission)
+    public function addPermission(Permission $permission)
     {
         $this->permissions[] = $permission;
         return $this;
