@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract Privilege
+ * Privilege
  *
  * This is the abstract privilege service which should be extended by the real privilege service.
  *
@@ -11,13 +11,13 @@
 namespace NinjaAuthorization\Service;
 
 /**
- * Abstract Privilege
+ * Privilege
  *
  * This is the abstract privilege service which should be extended by the real privilege service.
  *
  * @package NinjaAuthorization\Service
  */
-class AbstractPrivilege extends AbstractEntityService
+class Privilege extends AbstractEntityService
 {
-    protected $entity = 'NinjaAuthorization\Entity\AbstractPrivilege';
+    protected $entity = 'NinjaAuthorization\Entity\Privilege';
 }

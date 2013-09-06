@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package NinjaAuthorization\Entity
  */
-class AbstractRole extends AbstractEntity
+abstract class AbstractRole extends AbstractEntity
 {
 
     /**
@@ -38,8 +38,8 @@ class AbstractRole extends AbstractEntity
      * 
      * The role assignments that this role is associated with.
      * 
-     * @var AbstractRoleAssignment[] The role assignments that this role is associated with.
-     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\AbstractRoleAssignment", mappedBy="role")
+     * @var RoleAssignment[] The role assignments that this role is associated with.
+     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\RoleAssignment", mappedBy="role")
      */
     protected $roleAssignments;
     
@@ -48,8 +48,8 @@ class AbstractRole extends AbstractEntity
      * 
      * The permissions that this role is associated with.
      * 
-     * @var AbstractPermission[] The permissions that this role is associated with.
-     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\AbstractPermission", mappedBy="role")
+     * @var Permission[] The permissions that this role is associated with.
+     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\Permission", mappedBy="role")
      */
     protected $permissions;
 
@@ -58,8 +58,8 @@ class AbstractRole extends AbstractEntity
      *
      * The role that is the parent of this role.
      *
-     * @var null|AbstractRole The role that is the parent of this role.
-     * @ORM\ManyToOne(targetEntity="NinjaAuthorization\Entity\AbstractRole", inversedBy="children")
+     * @var null|Role The role that is the parent of this role.
+     * @ORM\ManyToOne(targetEntity="NinjaAuthorization\Entity\Role", inversedBy="children")
      * @ORM\JoinColumn(name="parent_role_id", referencedColumnName="id")
      */
     protected $parent;
@@ -69,8 +69,8 @@ class AbstractRole extends AbstractEntity
      *
      * The roles that this role is a parent of.
      *
-     * @var AbstractRole[] The roles that this role is a parent of.
-     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\AbstractRole", mappedBy="parent")
+     * @var Role[] The roles that this role is a parent of.
+     * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\Role", mappedBy="parent")
      */
     protected $children;
 
@@ -117,7 +117,7 @@ class AbstractRole extends AbstractEntity
      *
      * Gets the role assignments associated with this role.
      *
-     * @return AbstractRoleAssignment[] The role assignments associated with this role.
+     * @return RoleAssignment[] The role assignments associated with this role.
      */
     public function getRoleAssignments()
     {
@@ -129,10 +129,10 @@ class AbstractRole extends AbstractEntity
      *
      * Adds a role assignment for this role.
      *
-     * @param AbstractRoleAssignment $roleAssignment The role assignments to add to this role. 
+     * @param RoleAssignment $roleAssignment The role assignments to add to this role. 
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function addRoleAssignment(AbstractRoleAssignment $roleAssignment)
+    public function addRoleAssignment(RoleAssignment $roleAssignment)
     {
         $this->roleAssignments[] = $roleAssignment;
         return $this;
@@ -143,7 +143,7 @@ class AbstractRole extends AbstractEntity
      *
      * Gets the permissions associated with this role.
      *
-     * @return AbstractPermission[] The permissions associated with this role.
+     * @return Permission[] The permissions associated with this role.
      */
     public function getPermissions()
     {
@@ -155,10 +155,10 @@ class AbstractRole extends AbstractEntity
      *
      * Adds a permission to this role.
      *
-     * @param AbstractPermission $permission The permission to add to this role. 
+     * @param Permission $permission The permission to add to this role. 
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function addPermission(AbstractPermission $permission)
+    public function addPermission(Permission $permission)
     {
         $this->permissions[] = $permission;
         return $this;
@@ -169,7 +169,7 @@ class AbstractRole extends AbstractEntity
      *
      * Gets the role that is the parent of this role.
      *
-     * @return null|AbstractRole The role that is the parent of this role.
+     * @return null|Role The role that is the parent of this role.
      */
     public function getParent()
     {
@@ -181,10 +181,10 @@ class AbstractRole extends AbstractEntity
      *
      * Sets the role that is the parent of this role.
      *
-     * @param null|AbstractRole $parent The role that is the parent of this role.
+     * @param null|Role $parent The role that is the parent of this role.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function setParent(AbstractRole $parent = null)
+    public function setParent(Role $parent = null)
     {
         if (null !== $parent) {
             $parent->addChild($this);
@@ -198,7 +198,7 @@ class AbstractRole extends AbstractEntity
      *
      * Gets the children roles of this role.
      *
-     * @return AbstractRole[] The children roles of this role.
+     * @return Role[] The children roles of this role.
      */
     public function getChildren()
     {
@@ -210,10 +210,10 @@ class AbstractRole extends AbstractEntity
      *
      * Adds a child role to this role.
      *
-     * @param AbstractRole $child The child role to add to this role. 
+     * @param Role $child The child role to add to this role. 
      * @return self Returns itself to allow for method chaining.
      */
-    public function addChild(AbstractRole $child)
+    public function addChild(Role $child)
     {
         $this->children[] = $child;
         return $this;

@@ -25,7 +25,25 @@ return array(
             ),
         ),
     ),
+    'ninja_authorization' => array(
+        'admin_role_name' => 'admin',
+        'guest_role_name' => 'guest',
+    ),
     'service_manager' => array(
+        'factories' => array(
+            'PermissionService' => function ($serviceLocator) {
+                return $serviceLocator->get(__NAMESPACE__ . '\Service\PermissionEntityService');
+            },
+            'ResourceService' => function ($serviceLocator) {
+                return $serviceLocator->get(__NAMESPACE__ . '\Service\ResourceEntityService');
+            },
+            'RoleAssignmentService' => function ($serviceLocator) {
+                return $serviceLocator->get(__NAMESPACE__ . '\Service\RoleAssignmentEntityService');
+            },
+            'RoleService' => function ($serviceLocator) {
+                return $serviceLocator->get(__NAMESPACE__ . '\Service\RoleEntityService');
+            },
+        ),
         'invokables' => array(
             __NAMESPACE__ . '\Service\Acl' => __NAMESPACE__ . '\Service\Acl',
             'ZFAcl' => 'Zend\Permissions\Acl\Acl',
