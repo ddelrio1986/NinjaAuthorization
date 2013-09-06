@@ -46,7 +46,6 @@ return array(
         ),
         'invokables' => array(
             __NAMESPACE__ . '\Service\Acl' => __NAMESPACE__ . '\Service\Acl',
-            'PermissionEntity' => __NAMESPACE__ . '\Entity\Permission',
             'ZFAcl' => 'Zend\Permissions\Acl\Acl',
         ),
     ),
