@@ -37,7 +37,7 @@ abstract class AbstractRoleAssignment extends AbstractEntity
      *
      * The role for this role assignment.
      *
-     * @var Role The role for this role assignment.
+     * @var AbstractRole The role for this role assignment.
      * @ORM\ManyToOne(targetEntity="NinjaAuthorization\Entity\Role", inversedBy="roleAssignments")
      */
     protected $role;
@@ -74,7 +74,7 @@ abstract class AbstractRoleAssignment extends AbstractEntity
      *
      * Gets the role for this role assignment.
      *
-     * @return Role The role for this role assignment.
+     * @return AbstractRole The role for this role assignment.
      */
     public function getRole()
     {
@@ -86,10 +86,10 @@ abstract class AbstractRoleAssignment extends AbstractEntity
      *
      * Sets the role for this role assignment.
      *
-     * @param Role $role The role for this role assignment.
+     * @param AbstractRole $role The role for this role assignment.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function setRole(Role $role)
+    public function setRole(AbstractRole $role)
     {
         $role->addRoleAssignment($this);
         $this->role = $role;

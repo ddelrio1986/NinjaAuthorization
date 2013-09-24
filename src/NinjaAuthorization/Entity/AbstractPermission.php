@@ -58,7 +58,7 @@ abstract class AbstractPermission extends AbstractEntity
      *
      * The resource that this permission is for if it is for a resource.
      *
-     * @var null|Resource The resource that this permission is for if it is for a resource.
+     * @var null|AbstractResource The resource that this permission is for if it is for a resource.
      * @ORM\ManyToOne(targetEntity="NinjaAuthorization\Entity\Resource", inversedBy="permissions")
      */
     protected $resource;
@@ -68,7 +68,7 @@ abstract class AbstractPermission extends AbstractEntity
      *
      * The privilege that this permission is for if it is for a privilege.
      *
-     * @var null|Privilege The privilege that this permission is for if it is for a privilege.
+     * @var null|AbstractPrivilege The privilege that this permission is for if it is for a privilege.
      * @ORM\ManyToOne(targetEntity="NinjaAuthorization\Entity\Privilege", inversedBy="permissions")
      */
     protected $privilege;
@@ -106,7 +106,7 @@ abstract class AbstractPermission extends AbstractEntity
      *
      * Gets the role that this permission is for if it is for a role.
      *
-     * @return null|Role The role that this permission is for if it is for a role.
+     * @return null|AbstractRole The role that this permission is for if it is for a role.
      */
     public function getRole()
     {
@@ -118,10 +118,10 @@ abstract class AbstractPermission extends AbstractEntity
      *
      * Sets the role that this permission is for if it is for a role.
      *
-     * @param null|Role $role The role that this permission is for if it is for a role.
+     * @param null|AbstractRole $role The role that this permission is for if it is for a role.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function setRole(Role $role = null)
+    public function setRole(AbstractRole $role = null)
     {
         if (null !== $role) {
             $role->addPermission($this);
@@ -164,7 +164,7 @@ abstract class AbstractPermission extends AbstractEntity
      *
      * Gets the resource that this permission is for if it is for a resource.
      *
-     * @return null|Resource The resource that this permission is for if it is for a resource.
+     * @return null|AbstractResource The resource that this permission is for if it is for a resource.
      */
     public function getResource()
     {
@@ -176,10 +176,10 @@ abstract class AbstractPermission extends AbstractEntity
      *
      * Sets the resource that this permission is for if it is for a resource.
      *
-     * @param null|Resource $resource The resource that this permission is for if it is for a resource.
+     * @param null|AbstractResource $resource The resource that this permission is for if it is for a resource.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function setResource(Resource $resource = null)
+    public function setResource(AbstractResource $resource = null)
     {
         if (null !== $resource) {
             $resource->addPermission($this);
@@ -193,7 +193,7 @@ abstract class AbstractPermission extends AbstractEntity
      *
      * Gets the privilege that this permission is for if it is for a privilege.
      *
-     * @return null|Privilege The privilege that this permission is for if it is for a privilege.
+     * @return null|AbstractPrivilege The privilege that this permission is for if it is for a privilege.
      */
     public function getPrivilege()
     {
@@ -205,10 +205,10 @@ abstract class AbstractPermission extends AbstractEntity
      *
      * Sets the privilege that this permission is for if it is for a privilege.
      *
-     * @param null|Privilege $privilege The privilege that this permission is for if it is for a privilege.
+     * @param null|AbstractPrivilege $privilege The privilege that this permission is for if it is for a privilege.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function setPrivilege(Privilege $privilege = null)
+    public function setPrivilege(AbstractPrivilege $privilege = null)
     {
         if (null !== $privilege) {
             $privilege->addPermission($this);

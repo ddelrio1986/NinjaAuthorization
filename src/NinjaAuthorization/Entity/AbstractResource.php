@@ -38,7 +38,7 @@ abstract class AbstractResource extends AbstractEntity
      *
      * The permissions that this resource is associated with.
      *
-     * @var Permission[] The permissions that this resource is associated with.
+     * @var AbstractPermission[] The permissions that this resource is associated with.
      * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\Permission", mappedBy="resource")
      */
     protected $permissions;
@@ -84,7 +84,7 @@ abstract class AbstractResource extends AbstractEntity
      *
      * Gets the permissions associated with this resource.
      *
-     * @return Permission[] The permissions associated with this resource.
+     * @return AbstractPermission[] The permissions associated with this resource.
      */
     public function getPermissions()
     {
@@ -96,10 +96,10 @@ abstract class AbstractResource extends AbstractEntity
      *
      * Adds a permission to this resource.
      *
-     * @param Permission $permission The permission to add to this resource.
+     * @param AbstractPermission $permission The permission to add to this resource.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function addPermission(Permission $permission)
+    public function addPermission(AbstractPermission $permission)
     {
         $this->permissions[] = $permission;
         return $this;

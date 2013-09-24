@@ -38,7 +38,7 @@ abstract class AbstractRole extends AbstractEntity
      * 
      * The role assignments that this role is associated with.
      * 
-     * @var RoleAssignment[] The role assignments that this role is associated with.
+     * @var AbstractRoleAssignment[] The role assignments that this role is associated with.
      * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\RoleAssignment", mappedBy="role")
      */
     protected $roleAssignments;
@@ -48,7 +48,7 @@ abstract class AbstractRole extends AbstractEntity
      * 
      * The permissions that this role is associated with.
      * 
-     * @var Permission[] The permissions that this role is associated with.
+     * @var AbstractPermission[] The permissions that this role is associated with.
      * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\Permission", mappedBy="role")
      */
     protected $permissions;
@@ -58,7 +58,7 @@ abstract class AbstractRole extends AbstractEntity
      *
      * The role that is the parent of this role.
      *
-     * @var null|Role The role that is the parent of this role.
+     * @var null|AbstractRole The role that is the parent of this role.
      * @ORM\ManyToOne(targetEntity="NinjaAuthorization\Entity\Role", inversedBy="children")
      * @ORM\JoinColumn(name="parent_role_id", referencedColumnName="id")
      */
@@ -69,7 +69,7 @@ abstract class AbstractRole extends AbstractEntity
      *
      * The roles that this role is a parent of.
      *
-     * @var Role[] The roles that this role is a parent of.
+     * @var AbstractRole[] The roles that this role is a parent of.
      * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\Role", mappedBy="parent")
      */
     protected $children;
@@ -117,7 +117,7 @@ abstract class AbstractRole extends AbstractEntity
      *
      * Gets the role assignments associated with this role.
      *
-     * @return RoleAssignment[] The role assignments associated with this role.
+     * @return AbstractRoleAssignment[] The role assignments associated with this role.
      */
     public function getRoleAssignments()
     {
@@ -129,10 +129,10 @@ abstract class AbstractRole extends AbstractEntity
      *
      * Adds a role assignment for this role.
      *
-     * @param RoleAssignment $roleAssignment The role assignments to add to this role. 
+     * @param AbstractRoleAssignment $roleAssignment The role assignments to add to this role. 
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function addRoleAssignment(RoleAssignment $roleAssignment)
+    public function addRoleAssignment(AbstractRoleAssignment $roleAssignment)
     {
         $this->roleAssignments[] = $roleAssignment;
         return $this;
@@ -143,7 +143,7 @@ abstract class AbstractRole extends AbstractEntity
      *
      * Gets the permissions associated with this role.
      *
-     * @return Permission[] The permissions associated with this role.
+     * @return AbstractPermission[] The permissions associated with this role.
      */
     public function getPermissions()
     {
@@ -155,10 +155,10 @@ abstract class AbstractRole extends AbstractEntity
      *
      * Adds a permission to this role.
      *
-     * @param Permission $permission The permission to add to this role. 
+     * @param AbstractPermission $permission The permission to add to this role. 
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function addPermission(Permission $permission)
+    public function addPermission(AbstractPermission $permission)
     {
         $this->permissions[] = $permission;
         return $this;
@@ -169,7 +169,7 @@ abstract class AbstractRole extends AbstractEntity
      *
      * Gets the role that is the parent of this role.
      *
-     * @return null|Role The role that is the parent of this role.
+     * @return null|AbstractRole The role that is the parent of this role.
      */
     public function getParent()
     {
@@ -181,10 +181,10 @@ abstract class AbstractRole extends AbstractEntity
      *
      * Sets the role that is the parent of this role.
      *
-     * @param null|Role $parent The role that is the parent of this role.
+     * @param null|AbstractRole $parent The role that is the parent of this role.
      * @return self Returns itself to allow for a fluent interface.
      */
-    public function setParent(Role $parent = null)
+    public function setParent(AbstractRole $parent = null)
     {
         if (null !== $parent) {
             $parent->addChild($this);
@@ -198,7 +198,7 @@ abstract class AbstractRole extends AbstractEntity
      *
      * Gets the children roles of this role.
      *
-     * @return Role[] The children roles of this role.
+     * @return AbstractRole[] The children roles of this role.
      */
     public function getChildren()
     {
@@ -210,10 +210,10 @@ abstract class AbstractRole extends AbstractEntity
      *
      * Adds a child role to this role.
      *
-     * @param Role $child The child role to add to this role. 
+     * @param AbstractRole $child The child role to add to this role. 
      * @return self Returns itself to allow for method chaining.
      */
-    public function addChild(Role $child)
+    public function addChild(AbstractRole $child)
     {
         $this->children[] = $child;
         return $this;
