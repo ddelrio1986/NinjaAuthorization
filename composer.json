@@ -32,8 +32,11 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "dev-master",
-        "doctrine/doctrine-orm-module": "dev-master",
-        "ddelrio1986/ninja-service-layer": "v2.0"
+        "ddelrio1986/ninja-service-layer": "~2.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
     }
 }
