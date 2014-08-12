@@ -12,6 +12,7 @@ namespace NinjaAuthorization\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NinjaServiceLayer\Entity\AbstractNeverDeletedEntity as AbstractEntity;
 
 /**
  * Abstract Role
@@ -35,19 +36,19 @@ abstract class AbstractRole extends AbstractEntity
 
     /**
      * Role Assignments
-     * 
+     *
      * The role assignments that this role is associated with.
-     * 
+     *
      * @var AbstractRoleAssignment[] The role assignments that this role is associated with.
      * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\RoleAssignment", mappedBy="role")
      */
     protected $roleAssignments;
-    
+
     /**
      * Permissions
-     * 
+     *
      * The permissions that this role is associated with.
-     * 
+     *
      * @var AbstractPermission[] The permissions that this role is associated with.
      * @ORM\OneToMany(targetEntity="NinjaAuthorization\Entity\Permission", mappedBy="role")
      */
@@ -123,21 +124,21 @@ abstract class AbstractRole extends AbstractEntity
     {
         return $this->roleAssignments;
     }
-    
+
     /**
      * Add Role Assignment
      *
      * Adds a role assignment for this role.
      *
-     * @param AbstractRoleAssignment $roleAssignment The role assignments to add to this role. 
+     * @param AbstractRoleAssignment $roleAssignment The role assignments to add to this role.
      * @return self Returns itself to allow for a fluent interface.
      */
     public function addRoleAssignment(AbstractRoleAssignment $roleAssignment)
     {
-        $this->roleAssignments[] = $roleAssignment;
+        $this->getRoleAssignments()->add($roleAssignment);
         return $this;
     }
-    
+
     /**
      * Get Permissions
      *
@@ -149,21 +150,21 @@ abstract class AbstractRole extends AbstractEntity
     {
         return $this->permissions;
     }
-    
+
     /**
      * Add Permission
      *
      * Adds a permission to this role.
      *
-     * @param AbstractPermission $permission The permission to add to this role. 
+     * @param AbstractPermission $permission The permission to add to this role.
      * @return self Returns itself to allow for a fluent interface.
      */
     public function addPermission(AbstractPermission $permission)
     {
-        $this->permissions[] = $permission;
+        $this->getPermissions()->add($permission);
         return $this;
     }
-    
+
     /**
      * Get Parent
      *
@@ -210,12 +211,12 @@ abstract class AbstractRole extends AbstractEntity
      *
      * Adds a child role to this role.
      *
-     * @param AbstractRole $child The child role to add to this role. 
+     * @param AbstractRole $child The child role to add to this role.
      * @return self Returns itself to allow for method chaining.
      */
     public function addChild(AbstractRole $child)
     {
-        $this->children[] = $child;
+        $this->getChildren()->add($child);
         return $this;
     }
 }

@@ -11,6 +11,7 @@
 namespace NinjaAuthorization\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use NinjaServiceLayer\Entity\AbstractNeverDeletedEntity as AbstractEntity;
 
 /**
  * Abstract Role Assignment
@@ -53,7 +54,7 @@ abstract class AbstractRoleAssignment extends AbstractEntity
     {
         return $this->user;
     }
-    
+
     /**
      * Set User
      *
@@ -68,7 +69,7 @@ abstract class AbstractRoleAssignment extends AbstractEntity
         $this->user = $user;
         return $this;
     }
-    
+
     /**
      * Get Role
      *
@@ -80,7 +81,7 @@ abstract class AbstractRoleAssignment extends AbstractEntity
     {
         return $this->role;
     }
-    
+
     /**
      * Set Role
      *

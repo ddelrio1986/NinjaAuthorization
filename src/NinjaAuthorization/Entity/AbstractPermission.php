@@ -11,6 +11,7 @@
 namespace NinjaAuthorization\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use NinjaServiceLayer\Entity\AbstractNeverDeletedEntity as AbstractEntity;
 
 /**
  * Abstract Permission

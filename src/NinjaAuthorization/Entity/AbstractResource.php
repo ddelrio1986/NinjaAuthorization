@@ -12,6 +12,7 @@ namespace NinjaAuthorization\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NinjaServiceLayer\Entity\AbstractNeverDeletedEntity as AbstractEntity;
 
 /**
  * Abstract Resource
@@ -68,7 +69,7 @@ abstract class AbstractResource extends AbstractEntity
     /**
      * Set Name
      *
-     * Sets the name of this resource. 
+     * Sets the name of this resource.
      *
      * @param string $name The name of this resource.
      * @return self Returns itself to allow for a fluent interface.
@@ -101,7 +102,7 @@ abstract class AbstractResource extends AbstractEntity
      */
     public function addPermission(AbstractPermission $permission)
     {
-        $this->permissions[] = $permission;
+        $this->getPermissions()->add($permission);
         return $this;
     }
 }

@@ -12,6 +12,7 @@ namespace NinjaAuthorization\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NinjaServiceLayer\Entity\AbstractNeverDeletedEntity as AbstractEntity;
 
 /**
  * Abstract Privilege
@@ -101,7 +102,7 @@ abstract class AbstractPrivilege extends AbstractEntity
      */
     public function addPermission(AbstractPermission $permission)
     {
-        $this->permissions[] = $permission;
+        $this->getPermissions()->add($permission);
         return $this;
     }
 }
