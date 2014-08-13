@@ -39,7 +39,7 @@ return array(
             'NinjaAuthorization\Entity\RoleAssignmentFactory' => 'NinjaAuthorization\Entity\RoleAssignmentFactory',
 
             'NinjaAuthorization\Service\Acl' => 'NinjaAuthorization\Service\Acl',
-            'ZFAcl' => 'Zend\Permissions\Acl\Acl',
+            'Zend\Permissions\Acl\Acl' => 'Zend\Permissions\Acl\Acl',
         ),
     ),
 );

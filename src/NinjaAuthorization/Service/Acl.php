@@ -10,7 +10,9 @@
 
 namespace NinjaAuthorization\Service;
 
-use Zend\Permissions\Acl\Acl as ZFAcl;
+use Doctrine\Common\Persistence\ObjectManager;
+use NinjaAuthorization\Service\Role as RoleService;
+use Zend\Permissions\Acl\Acl as ZendAcl;
 use Zend\Permissions\Acl\Role\GenericRole as ZFRole;
 use Zend\Permissions\Acl\Resource\GenericResource as ZFResource;
 
@@ -25,7 +27,98 @@ use Zend\Permissions\Acl\Resource\GenericResource as ZFResource;
 class Acl extends AbstractService
 {
 
+    /**
+     * Current User Role
+     *
+     * @var string The current user role name.
+     */
     const CURRENT_USER_ROLE = 'current-user';
+
+    /**
+     * Role Service
+     *
+     * @var RoleService The role service.
+     */
+    protected $roleService;
+
+    /**
+     * Zend ACL
+     *
+     * @var ZendAcl The Zend ACL instance used for storing the entire ACL.
+     */
+    protected $zendAcl;
+
+    /**
+     * Get Role Service
+     *
+     * Gets the role service.
+     *
+     * @return RoleService The role service.
+     */
+    public function getRoleService()
+    {
+        return $this->roleService;
+    }
+
+    /**
+     * Set Role Service
+     *
+     * Sets the role service.
+     *
+     * @param RoleService $roleService The role service.
+     * @return Acl Returns itself to allow for method chaining.
+     */
+    public function setRoleService(RoleService $roleService)
+    {
+        $this->roleService = $roleService;
+        return $this;
+    }
+
+    /**
+     * Get Zend ACL
+     *
+     * Gets the Zend ACL instance used for storing the entire ACL.
+     *
+     * @return ZendAcl The Zend ACL instance used for storing the entire ACL.
+     */
+    public function getZendAcl()
+    {
+        return $this->zendAcl;
+    }
+
+    /**
+     * Set Zend ACL
+     *
+     * Sets the Zend ACL instance used for storing the entire ACL.
+     *
+     * @param ZendAcl $zendAcl The Zend ACL instance used for storing the entire ACL.
+     * @return Acl Returns itself to allow for method chaining.
+     */
+    public function setZendAcl(ZendAcl $zendAcl)
+    {
+        $this->zendAcl = $zendAcl;
+        return $this;
+    }
+
+    /**
+     * __construct
+     *
+     * Used to store dependencies to properties.
+     *
+     * @param ObjectManager $objectManager The Doctrine object manager.
+     * @param RoleService $roleService The role service.
+     * @param ZendAcl $zendAcl The Zend ACL instance used for storing the entire ACL.
+     */
+    public function __construct(
+        ObjectManager $objectManager,
+        RoleService $roleService,
+        ZendAcl $zendAcl
+    )
+    {
+        parent::__construct($objectManager);
+        $this->roleService = $roleService;
+        $this->zendAcl = $zendAcl;
+    }
 
     /**
      * Get ACL By User ID
@@ -33,7 +126,7 @@ class Acl extends AbstractService
      * Create an ACL object for the specified user.
      *
      * @param int $userId A user's ID.
-     * @return ZFAcl The ACL for the user.
+     * @return ZendAcl The ACL for the user.
      */
     public function getAclByUserId($userId)
     {
@@ -42,8 +135,7 @@ class Acl extends AbstractService
         $userId = (int)$userId;
 
         // Create a new ACL object.
-        $serviceLocator = $this->getServiceLocator();
-        $acl = $serviceLocator->get('ZFAcl');
+        $acl = $this->zendAcl;
 
         // Add all of the roles to the Acl object.
         $this->addAllRoles($acl);
@@ -68,14 +160,13 @@ class Acl extends AbstractService
      *
      * Will add all of the rows in the database to the Acl object.
      *
-     * @param ZFAcl $acl The Acl object to add all of the roles to.
+     * @param ZendAcl $acl The Acl object to add all of the roles to.
      */
-    public function addAllRoles(ZFAcl $acl)
+    public function addAllRoles(ZendAcl $acl)
     {
 
         // Get all of the roles.
-        $serviceLocator = $this->getServiceLocator();
-        $roleService = $serviceLocator->get('RoleService');
+        $roleService = $this->roleService;
         $roles = $roleService->getNotDeleted();
 
         // Add the roles to the acl object.
@@ -172,7 +263,7 @@ class Acl extends AbstractService
             }
 
             $acl->addRole(new ZFRole(self::CURRENT_USER_ROLE), $parents);
-        
+
         // Setup user role for a guest.
         } else {
             $config = $this->getServiceLocator()->get('Config');

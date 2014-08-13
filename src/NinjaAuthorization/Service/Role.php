@@ -17,7 +17,7 @@ namespace NinjaAuthorization\Service;
  *
  * @package NinjaAuthorization\Service
  */
-class Role extends AbstractEntityService
+class Role extends AbstractService
 {
     protected $entity = 'NinjaAuthorization\Entity\Role';
 }
