@@ -20,7 +20,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @package NinjaAuthorization\Service
  */
-class AclFactory implements ServiceLocatorInterface
+class AclFactory implements FactoryInterface
 {
 
     /**
@@ -33,6 +33,8 @@ class AclFactory implements ServiceLocatorInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new Acl();
+        $objectManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
+        $roleService = $serviceLocator->get('NinjaAuthorization\Service\Role');
+        return new Acl($objectManager, $roleService);
     }
 }
