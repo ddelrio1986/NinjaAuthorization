@@ -23,6 +23,7 @@ return array(
         'factories' => array(
 
             // Entity services.
+            'NinjaAuthorization\Service\Acl' => 'NinjaAuthorization\Service\AclFactory',
             'NinjaAuthorization\Service\Permission' => 'NinjaAuthorization\Service\PermissionFactory',
             'NinjaAuthorization\Service\Privilege' => 'NinjaAuthorization\Service\PrivilegeFactory',
             'NinjaAuthorization\Service\Resource' => 'NinjaAuthorization\Service\ResourceFactory',
@@ -37,8 +38,6 @@ return array(
             'NinjaAuthorization\Entity\ResourceFactory' => 'NinjaAuthorization\Entity\ResourceFactory',
             'NinjaAuthorization\Entity\RoleFactory' => 'NinjaAuthorization\Entity\RoleFactory',
             'NinjaAuthorization\Entity\RoleAssignmentFactory' => 'NinjaAuthorization\Entity\RoleAssignmentFactory',
-
-            'NinjaAuthorization\Service\Acl' => 'NinjaAuthorization\Service\Acl',
             'Zend\Permissions\Acl\Acl' => 'Zend\Permissions\Acl\Acl',
         ),
     ),
