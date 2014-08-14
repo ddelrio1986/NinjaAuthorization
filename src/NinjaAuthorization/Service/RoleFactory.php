@@ -1,8 +1,8 @@
 <?php
 /**
- * Resource Factory
+ * Role Factory
  *
- * A factory for the resource service.
+ * A factory for the role service.
  *
  * @package NinjaAuthorization\Service
  * @filesource
@@ -14,25 +14,25 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Resource Factory
+ * Role Factory
  *
- * A factory for the resource service.
+ * A factory for the role service.
  *
  * @package NinjaAuthorization\Service
  */
-class ResourceFactory implements FactoryInterface
+class RoleFactory implements FactoryInterface
 {
 
     /**
      * Create Service
      *
-     * Creates the resource service.
+     * Creates the role service.
      *
      * @param ServiceLocatorInterface $serviceLocator The service locator.
-     * @return Resource The resource service.
+     * @return Role The role service.
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new Resource();
+        return new Role();
     }
 }

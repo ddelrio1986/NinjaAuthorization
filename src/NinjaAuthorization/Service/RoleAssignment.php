@@ -19,9 +19,8 @@ use NinjaAuthorization\Entity\RoleAssignment as RoleAssignmentEntity;
  *
  * @package NinjaAuthorization\Service
  */
-class RoleAssignment extends AbstractEntityService
+class RoleAssignment extends AbstractService
 {
-    protected $entity = 'NinjaAuthorization\Entity\RoleAssignment';
 
     /**
      * Delete By Role ID and User ID

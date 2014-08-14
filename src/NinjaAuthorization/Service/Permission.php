@@ -17,9 +17,8 @@ namespace NinjaAuthorization\Service;
  *
  * @package NinjaAuthorization\Service
  */
-class Permission extends AbstractEntityService
+class Permission extends AbstractService
 {
-    protected $entity = 'NinjaAuthorization\Entity\Permission';
 
     /**
      * Get Not Deleted By User ID

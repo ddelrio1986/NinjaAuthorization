@@ -20,7 +20,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @package NinjaAuthorization\Service
  */
-class RoleAssignmentFactory implements ServiceLocatorInterface
+class RoleAssignmentFactory implements FactoryInterface
 {
 
     /**
