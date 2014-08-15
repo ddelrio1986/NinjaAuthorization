@@ -128,7 +128,7 @@ class Acl extends AbstractService
      * @param int $userId A user's ID.
      * @return ZendAcl The ACL for the user.
      */
-    public function getAclByUserId($userId)
+    public function getByUserId($userId)
     {
 
         // Cleanse input.
