@@ -35,6 +35,7 @@ class AclFactory implements FactoryInterface
     {
         $objectManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
         $roleService = $serviceLocator->get('NinjaAuthorization\Service\Role');
-        return new Acl($objectManager, $roleService);
+        $zendAcl = $serviceLocator->get('Zend\Permissions\Acl\Acl');
+        return new Acl($objectManager, $roleService, $zendAcl);
     }
 }
