@@ -10,6 +10,7 @@
 
 namespace NinjaAuthorization\Service;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -33,6 +34,7 @@ class RoleFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new Role();
+        $objectManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
+        return new Role($objectManager);
     }
 }
