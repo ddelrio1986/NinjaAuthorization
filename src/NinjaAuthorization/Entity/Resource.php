@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * This is the permission entity used to represent permissions.
  *
  * @package NinjaAuthorization\Entity
- * @ORM\Entity(repositoryClass="NinjaAuthorization\Service\Resource")
+ * @ORM\Entity(repositoryClass="NinjaAuthorization\EntityRepository\Resource")
  * @ORM\Table(name="resource")
  */
 class Resource extends AbstractResource

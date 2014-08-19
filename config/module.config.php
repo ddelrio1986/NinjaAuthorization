@@ -17,6 +17,7 @@ return array(
     ),
     'ninja_authorization' => array(
         'admin_role_name' => 'admin',
+        'current_user_role_name' => 'current-user',
         'guest_role_name' => 'guest',
     ),
     'service_manager' => array(
@@ -38,7 +39,11 @@ return array(
             'NinjaAuthorization\Entity\ResourceFactory' => 'NinjaAuthorization\Entity\ResourceFactory',
             'NinjaAuthorization\Entity\RoleFactory' => 'NinjaAuthorization\Entity\RoleFactory',
             'NinjaAuthorization\Entity\RoleAssignmentFactory' => 'NinjaAuthorization\Entity\RoleAssignmentFactory',
-            'Zend\Permissions\Acl\Acl' => 'Zend\Permissions\Acl\Acl',
+
+            // Miscellaneous factories.
+            'NinjaAuthorization\Permissions\Acl\AclFactory' => 'NinjaAuthorization\Permissions\Acl\AclFactory',
+            'NinjaAuthorization\Permissions\Acl\Resource\GenericResourceFactory' => 'NinjaAuthorization\Permissions\Acl\Resource\GenericResourceFactory',
+            'NinjaAuthorization\Permissions\Acl\Role\GenericRoleFactory' => 'NinjaAuthorization\Permissions\Acl\Role\GenericRoleFactory',
         ),
     ),
 );

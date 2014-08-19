@@ -33,6 +33,7 @@ class PermissionFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new Permission();
+        $objectManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
+        return new Permission($objectManager);
     }
 }

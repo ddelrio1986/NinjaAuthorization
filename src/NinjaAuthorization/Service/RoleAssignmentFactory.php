@@ -33,6 +33,7 @@ class RoleAssignmentFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new RoleAssignment();
+        $objectManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
+        return new RoleAssignment($objectManager);
     }
 }

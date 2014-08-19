@@ -10,7 +10,7 @@
 
 namespace NinjaAuthorization\Service;
 
-use NinjaServiceLayer\Service\AbstractService as NinjaService;
+use NinjaServiceLayer\Service\AbstractNeverDeletedService as NinjaService;
 
 /**
  * Abstract Service

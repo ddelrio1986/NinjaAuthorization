@@ -33,6 +33,7 @@ class ResourceFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new Resource();
+        $objectManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
+        return new Resource($objectManager);
     }
 }

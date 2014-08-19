@@ -1,8 +1,8 @@
 <?php
 /**
- * Role
+ * Resource
  *
- * Entity repository for the role entity.
+ * Entity repository for the resource entity.
  *
  * @package NinjaAuthorization\EntityRepository
  * @filesource
@@ -13,12 +13,12 @@ namespace NinjaAuthorization\EntityRepository;
 use NinjaServiceLayer\EntityRepository\AbstractNeverDeletedEntityRepository;
 
 /**
- * Role
+ * Resource
  *
- * Entity repository for the role entity.
+ * Entity repository for the resource entity.
  *
  * @package NinjaAuthorization\EntityRepository
  */
-class Role extends AbstractNeverDeletedEntityRepository
+class Resource extends AbstractNeverDeletedEntityRepository
 {
 }

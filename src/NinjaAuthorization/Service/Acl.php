@@ -11,10 +11,14 @@
 namespace NinjaAuthorization\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use NinjaAuthorization\Service\Role as RoleService;
+use NinjaAuthorization\EntityRepository\Permission as PermissionEntityRepository;
+use NinjaAuthorization\EntityRepository\Resource as ResourceEntityRepository;
+use NinjaAuthorization\EntityRepository\Role as RoleEntityRepository;
+use NinjaAuthorization\EntityRepository\RoleAssignment as RoleAssignmentEntityRepository;
+use NinjaAuthorization\Permissions\Acl\AclFactory as AclCreator;
+use NinjaAuthorization\Permissions\Acl\Resource\GenericResourceFactory;
+use NinjaAuthorization\Permissions\Acl\Role\GenericRoleFactory;
 use Zend\Permissions\Acl\Acl as ZendAcl;
-use Zend\Permissions\Acl\Role\GenericRole as ZFRole;
-use Zend\Permissions\Acl\Resource\GenericResource as ZFResource;
 
 /**
  * ACL
@@ -28,104 +32,105 @@ class Acl extends AbstractService
 {
 
     /**
-     * Current User Role
+     * ACL Factory
      *
-     * @var string The current user role name.
+     * @var AclCreator A factory used to create an instance of ZF's ACL class.
      */
-    const CURRENT_USER_ROLE = 'current-user';
+    protected $aclCreator;
 
     /**
-     * Role Service
+     * Application Config
      *
-     * @var RoleService The role service.
+     * @var array The application configuration.
      */
-    protected $roleService;
+    protected $applicationConfig;
 
     /**
-     * Zend ACL
+     * Generic Resource Factory
      *
-     * @var ZendAcl The Zend ACL instance used for storing the entire ACL.
+     * @var GenericResourceFactory A factory used to create an instance of ZF's generic resource class.
      */
-    protected $zendAcl;
+    protected $genericResourceFactory;
 
     /**
-     * Get Role Service
+     * Generic Role Factory
      *
-     * Gets the role service.
-     *
-     * @return RoleService The role service.
+     * @var GenericRoleFactory A factory used to create an instance of ZF's generic role class.
      */
-    public function getRoleService()
-    {
-        return $this->roleService;
-    }
+    protected $genericRoleFactory;
 
     /**
-     * Set Role Service
+     * Permission Entity Repository
      *
-     * Sets the role service.
-     *
-     * @param RoleService $roleService The role service.
-     * @return Acl Returns itself to allow for method chaining.
+     * @var PermissionEntityRepository The entity repository for the permission entity.
      */
-    public function setRoleService(RoleService $roleService)
-    {
-        $this->roleService = $roleService;
-        return $this;
-    }
+    protected $permissionEntityRepository;
 
     /**
-     * Get Zend ACL
+     * Resource Entity Repository
      *
-     * Gets the Zend ACL instance used for storing the entire ACL.
-     *
-     * @return ZendAcl The Zend ACL instance used for storing the entire ACL.
+     * @var ResourceEntityRepository The resource entity repository.
      */
-    public function getZendAcl()
-    {
-        return $this->zendAcl;
-    }
+    protected $resourceEntityRepository;
 
     /**
-     * Set Zend ACL
+     * Role Assignment Entity Repository
      *
-     * Sets the Zend ACL instance used for storing the entire ACL.
-     *
-     * @param ZendAcl $zendAcl The Zend ACL instance used for storing the entire ACL.
-     * @return Acl Returns itself to allow for method chaining.
+     * @var RoleAssignmentEntityRepository The entity repository for the role assignment entity.
      */
-    public function setZendAcl(ZendAcl $zendAcl)
-    {
-        $this->zendAcl = $zendAcl;
-        return $this;
-    }
+    protected $roleAssignmentEntityRepository;
+
+    /**
+     * Role Entity Repository
+     *
+     * @var RoleEntityRepository The role entity repository.
+     */
+    protected $roleEntityRepository;
 
     /**
      * __construct
      *
      * Used to store dependencies to properties.
      *
+     * @param AclCreator $aclCreator A factory used to create an instance of ZF's ACL class.
+     * @param array $applicationConfig The application configuration.
+     * @param GenericResourceFactory $genericResourceFactory A factory used to create an instance of ZF's generic resource class.
+     * @param GenericRoleFactory $genericRoleFactory A factory used to create an instance of ZF's generic role class.
      * @param ObjectManager $objectManager The Doctrine object manager.
-     * @param RoleService $roleService The role service.
-     * @param ZendAcl $zendAcl The Zend ACL instance used for storing the entire ACL.
+     * @param PermissionEntityRepository $permissionEntityRepository The entity repository for the permission entity.
+     * @param ResourceEntityRepository $resourceEntityRepository The resource entity repository.
+     * @param RoleAssignmentEntityRepository $roleAssignmentEntityRepository The entity repository for the role assignment entity.
+     * @param RoleEntityRepository $roleEntityRepository The role entity repository.
      */
     public function __construct(
+        AclCreator $aclCreator,
+        array $applicationConfig,
+        GenericResourceFactory $genericResourceFactory,
+        GenericRoleFactory $genericRoleFactory,
         ObjectManager $objectManager,
-        RoleService $roleService,
-        ZendAcl $zendAcl
+        PermissionEntityRepository $permissionEntityRepository,
+        ResourceEntityRepository $resourceEntityRepository,
+        RoleAssignmentEntityRepository $roleAssignmentEntityRepository,
+        RoleEntityRepository $roleEntityRepository
     )
     {
         parent::__construct($objectManager);
-        $this->roleService = $roleService;
-        $this->zendAcl = $zendAcl;
+        $this->aclCreator = $aclCreator;
+        $this->applicationConfig = $applicationConfig;
+        $this->genericResourceFactory = $genericResourceFactory;
+        $this->genericRoleFactory = $genericRoleFactory;
+        $this->permissionEntityRepository = $permissionEntityRepository;
+        $this->resourceEntityRepository = $resourceEntityRepository;
+        $this->roleAssignmentEntityRepository = $roleAssignmentEntityRepository;
+        $this->roleEntityRepository = $roleEntityRepository;
     }
 
     /**
-     * Get ACL By User ID
+     * Get By User ID
      *
      * Create an ACL object for the specified user.
      *
-     * @param int $userId A user's ID.
+     * @param int|null $userId A user's ID or null for a guest user.
      * @return ZendAcl The ACL for the user.
      */
     public function getByUserId($userId)
@@ -134,8 +139,8 @@ class Acl extends AbstractService
         // Cleanse input.
         $userId = (int)$userId;
 
-        // Create a new ACL object.
-        $acl = $this->zendAcl;
+        // Get an ACL instance to use.
+        $acl = $this->aclCreator->createService();
 
         // Add all of the roles to the Acl object.
         $this->addAllRoles($acl);
@@ -166,39 +171,35 @@ class Acl extends AbstractService
     {
 
         // Get all of the roles.
-        $roleService = $this->roleService;
-        $roles = $roleService->getNotDeleted();
+        $roles = $this->roleEntityRepository->getNotDeleted();
 
         // Add the roles to the acl object.
         foreach ($roles as $role) {
-            $zfRole = new ZFRole($role->getName());
+            $zendRole = $this->genericRoleFactory->createService($role->getName());
             $parents = array();
             if ($role->getParent()) {
                 $parents[] = $role->getParent()->getName();
             }
-            $acl->addRole($zfRole, $parents);
+            $acl->addRole($zendRole, $parents);
         }
     }
 
     /**
      * Add All Resources
      *
-     * All all of the available resources to the Acl object.
+     * All all of the available resources to the ACL object.
      *
-     * @param ZFAcl $acl The acl object to add the resources to.
+     * @param ZendAcl $acl The ACL object to add the resources to.
      */
-    public function addAllResources(ZFAcl $acl)
+    public function addAllResources(ZendAcl $acl)
     {
 
         // Get all of the resources.
-        $serviceLocator = $this->getServiceLocator();
-        $resourceService = $serviceLocator->get('ResourceService');
-        $resource = $resourceService->getById(1);
-        $resources = $resourceService->getNotDeleted();
+        $resources = $this->resourceEntityRepository->getNotDeleted();
 
         // Add the resources to the acl.
         foreach ($resources as $resource) {
-            $zfResource = new ZFResource($resource->getName());
+            $zfResource = $this->genericResourceFactory->createService($resource->getName());
             $acl->addResource($zfResource);
         }
     }
@@ -208,19 +209,16 @@ class Acl extends AbstractService
      *
      * Adds all of the permissions not assigned to a specific user to the acl.
      *
-     * @param ZFAcl $acl The acl to add permissions to.
+     * @param ZendAcl $acl The acl to add permissions to.
      */
-    public function addNonUserPermissions(ZFAcl $acl)
+    public function addNonUserPermissions(ZendAcl $acl)
     {
 
         // Let admins do everything.
-        $serviceLocator = $this->getServiceLocator();
-        $config = $serviceLocator->get('Config');
-        $acl->allow($config['ninja_authorization']['admin_role_name']);
+        $acl->allow($this->applicationConfig['ninja_authorization']['admin_role_name']);
 
         // Get the permissions that are tied to a role and not to a user.
-        $permissionService = $serviceLocator->get('PermissionService');
-        $permissions = $permissionService->getNotDeletedRolePermissions();
+        $permissions = $this->permissionEntityRepository->getNotDeletedRolePermissions();
 
         // Add the permissions.
         foreach ($permissions as $permission) {
@@ -241,10 +239,10 @@ class Acl extends AbstractService
      *
      * Add a role to hold privileges for a specific user.
      *
-     * @param ZFAcl $acl The acl object to add the role to.
+     * @param ZendAcl $acl The acl object to add the role to.
      * @param int $userId The ID of the user to add a role for.
      */
-    public function addUserRole(ZFAcl $acl, $userId)
+    public function addUserRole(ZendAcl $acl, $userId)
     {
 
         // Cleanse input.
@@ -252,9 +250,7 @@ class Acl extends AbstractService
 
         // Get the roles that user is assigned to.
         if (0 !== $userId) {
-            $serviceLocator = $this->getServiceLocator();
-            $roleAssignmentService = $serviceLocator->get('RoleAssignmentService');
-            $roleAssignments = $roleAssignmentService->getNotDeletedByUserId($userId);
+            $roleAssignments = $this->roleAssignmentEntityRepository->getNotDeletedByUserId($userId);
 
             // Get the parent roles for the user.
             $parents = array();
@@ -262,14 +258,20 @@ class Acl extends AbstractService
                 $parents[] = $roleAssignment->getRole()->getName();
             }
 
-            $acl->addRole(new ZFRole(self::CURRENT_USER_ROLE), $parents);
+            $acl->addRole(
+                $this->genericRoleFactory->createService(
+                    $this->applicationConfig['ninja_authorization']['current_user_role_name']
+                ),
+                $parents
+            );
 
         // Setup user role for a guest.
         } else {
-            $config = $this->getServiceLocator()->get('Config');
             $acl->addRole(
-                new ZFRole(self::CURRENT_USER_ROLE),
-                array($config['ninja_authorization']['guest_role_name'])
+                $this->genericRoleFactory->createService(
+                    $this->applicationConfig['ninja_authorization']['current_user_role_name']
+                ),
+                array($this->applicationConfig['ninja_authorization']['guest_role_name'])
             );
         }
     }
@@ -279,10 +281,10 @@ class Acl extends AbstractService
      *
      * Adds the permissions that were tied directly to the user.
      *
-     * @param ZFAcl $acl The acl object to add the role to.
+     * @param ZendAcl $acl The acl object to add the role to.
      * @param int $userId The ID of the user.
      */
-    public function addUserPermissions(ZFAcl $acl, $userId)
+    public function addUserPermissions(ZendAcl $acl, $userId)
     {
 
         // Cleanse input.
@@ -291,8 +293,7 @@ class Acl extends AbstractService
         if (0 !== $userId) {
 
             // Get the permissions for the user.
-            $permissionService = $this->getServiceLocator()->get('PermissionService');
-            $permissions = $permissionService->getNotDeletedByUserId($userId);
+            $permissions = $this->permissionEntityRepository->getNotDeletedByUserId($userId);
 
             // Add the permissions.
             foreach ($permissions as $permission) {
@@ -300,9 +301,9 @@ class Acl extends AbstractService
                 $privilege = ($permission->getPrivilege()) ? $permission->getPrivilege()->getName() : null;
 
                 if ($permission->getAllow()) {
-                    $acl->allow(self::CURRENT_USER_ROLE, $resource, $privilege);
+                    $acl->allow($this->applicationConfig['ninja_authorization']['current_user_role_name'], $resource, $privilege);
                 } else {
-                    $acl->deny(self::CURRENT_USER_ROLE, $resource, $privilege);
+                    $acl->deny($this->applicationConfig['ninja_authorization']['current_user_role_name'], $resource, $privilege);
                 }
             }
         }
