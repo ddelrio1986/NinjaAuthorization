@@ -10,7 +10,7 @@
 
 namespace NinjaAuthorization\Service;
 
-use NinjaServiceLayer\Service\AbstractNeverDeletedService as NinjaService;
+use NinjaServiceLayer\Service\AbstractService as NinjaServiceLayerAbstractService;
 
 /**
  * Abstract Service
@@ -19,6 +19,6 @@ use NinjaServiceLayer\Service\AbstractNeverDeletedService as NinjaService;
  *
  * @package NinjaAuthorization\Service
  */
-abstract class AbstractService extends NinjaService
+abstract class AbstractService extends NinjaServiceLayerAbstractService
 {
 }

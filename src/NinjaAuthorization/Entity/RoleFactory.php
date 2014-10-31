@@ -22,15 +22,15 @@ use NinjaServiceLayer\Entity\FactoryInterface;
 class RoleFactory implements FactoryInterface
 {
 
-    /**
-     * Create Entity
-     *
-     * Creates the role entity
-     *
-     * @return AbstractRole The role entity.
-     */
-    public function createEntity()
-    {
-        return new Role();
-    }
+  /**
+   * Create Entity
+   *
+   * Creates the role entity
+   *
+   * @return AbstractRole The role entity.
+   */
+  public function createEntity()
+  {
+    return new Role;
+  }
 }

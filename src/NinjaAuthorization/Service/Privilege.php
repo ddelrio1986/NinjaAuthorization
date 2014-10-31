@@ -2,7 +2,7 @@
 /**
  * Privilege
  *
- * This is the abstract privilege service which should be extended by the real privilege service.
+ * Privilege service.
  *
  * @package NinjaAuthorization\Service
  * @filesource
@@ -13,7 +13,7 @@ namespace NinjaAuthorization\Service;
 /**
  * Privilege
  *
- * This is the abstract privilege service which should be extended by the real privilege service.
+ * Privilege service.
  *
  * @package NinjaAuthorization\Service
  */

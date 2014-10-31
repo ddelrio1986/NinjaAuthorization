@@ -10,7 +10,7 @@
 
 namespace NinjaAuthorization\EntityRepository;
 
-use NinjaServiceLayer\EntityRepository\AbstractNeverDeletedEntityRepository;
+use NinjaServiceLayer\EntityRepository\AbstractEntityRepository;
 
 /**
  * Resource
@@ -19,6 +19,6 @@ use NinjaServiceLayer\EntityRepository\AbstractNeverDeletedEntityRepository;
  *
  * @package NinjaAuthorization\EntityRepository
  */
-class Resource extends AbstractNeverDeletedEntityRepository
+class Resource extends AbstractEntityRepository
 {
 }

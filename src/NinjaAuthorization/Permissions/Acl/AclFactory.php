@@ -2,7 +2,7 @@
 /**
  * ACL Factory
  *
- * A factory used to create an instance of ZF's ACL class.
+ * Factory used to create an instance of ZF's ACL class.
  *
  * @package NinjaAuthorization\Permissions\Acl
  * @filesource
@@ -15,22 +15,22 @@ use Zend\Permissions\Acl\Acl;
 /**
  * ACL Factory
  *
- * A factory used to create an instance of ZF's ACL class.
+ * Factory used to create an instance of ZF's ACL class.
  *
  * @package NinjaAuthorization\Permissions\Acl
  */
 class AclFactory
 {
 
-    /**
-     * Create Service
-     *
-     * Creates an instance of ZF's ACL class.
-     *
-     * @return Acl An instance of ZF's ACL class.
-     */
-    public function createService()
-    {
-        return new Acl();
-    }
+  /**
+   * Create Service
+   *
+   * Creates an instance of ZF's ACL class.
+   *
+   * @return Acl An instance of ZF's ACL class.
+   */
+  public function createService()
+  {
+    return new Acl;
+  }
 }

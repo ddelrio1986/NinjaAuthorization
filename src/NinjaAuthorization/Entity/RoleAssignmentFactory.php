@@ -22,15 +22,15 @@ use NinjaServiceLayer\Entity\FactoryInterface;
 class RoleAssignmentFactory implements FactoryInterface
 {
 
-    /**
-     * Create Entity
-     *
-     * Creates the role assignment entity
-     *
-     * @return AbstractRoleAssignment The role assignment entity.
-     */
-    public function createEntity()
-    {
-        return new RoleAssignment();
-    }
+  /**
+   * Create Entity
+   *
+   * Creates the role assignment entity
+   *
+   * @return AbstractRoleAssignment The role assignment entity.
+   */
+  public function createEntity()
+  {
+    return new RoleAssignment;
+  }
 }

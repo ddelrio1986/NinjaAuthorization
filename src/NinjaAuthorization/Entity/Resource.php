@@ -2,7 +2,7 @@
 /**
  * Resource
  *
- * This is the permission entity used to represent permissions.
+ * Resource entity.
  *
  * @package NinjaAuthorization\Entity
  * @filesource
@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Resource
  *
- * This is the permission entity used to represent permissions.
+ * Resource entity.
  *
  * @package NinjaAuthorization\Entity
  * @ORM\Entity(repositoryClass="NinjaAuthorization\EntityRepository\Resource")

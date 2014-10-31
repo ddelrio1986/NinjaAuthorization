@@ -2,7 +2,7 @@
 /**
  * Role
  *
- * This is the abstract role service which should be extended by the actual role service.
+ * Role service.
  *
  * @package NinjaAuthorization\Service
  * @filesource
@@ -13,7 +13,7 @@ namespace NinjaAuthorization\Service;
 /**
  * Role
  *
- * This is the abstract role service which should be extended by the actual role service.
+ * Role service.
  *
  * @package NinjaAuthorization\Service
  */

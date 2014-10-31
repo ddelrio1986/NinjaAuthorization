@@ -22,15 +22,15 @@ use NinjaServiceLayer\Entity\FactoryInterface;
 class ResourceFactory implements FactoryInterface
 {
 
-    /**
-     * Create Entity
-     *
-     * Creates the resource entity
-     *
-     * @return AbstractResource The resource entity.
-     */
-    public function createEntity()
-    {
-        return new Resource();
-    }
+  /**
+   * Create Entity
+   *
+   * Creates the resource entity
+   *
+   * @return AbstractResource The resource entity.
+   */
+  public function createEntity()
+  {
+    return new Resource;
+  }
 }

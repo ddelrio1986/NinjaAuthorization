@@ -22,15 +22,15 @@ use NinjaServiceLayer\Entity\FactoryInterface;
 class PermissionFactory implements FactoryInterface
 {
 
-    /**
-     * Create Entity
-     *
-     * Creates the permission entity
-     *
-     * @return AbstractPermission The permission entity.
-     */
-    public function createEntity()
-    {
-        return new Permission();
-    }
+  /**
+   * Create Entity
+   *
+   * Creates the permission entity
+   *
+   * @return AbstractPermission The permission entity.
+   */
+  public function createEntity()
+  {
+    return new Permission;
+  }
 }

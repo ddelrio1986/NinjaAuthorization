@@ -22,15 +22,15 @@ use NinjaServiceLayer\Entity\FactoryInterface;
 class PrivilegeFactory implements FactoryInterface
 {
 
-    /**
-     * Create Entity
-     *
-     * Creates the privilege entity
-     *
-     * @return AbstractPrivilege The privilege entity.
-     */
-    public function createEntity()
-    {
-        return new Privilege();
-    }
+  /**
+   * Create Entity
+   *
+   * Creates the privilege entity
+   *
+   * @return AbstractPrivilege The privilege entity.
+   */
+  public function createEntity()
+  {
+    return new Privilege;
+  }
 }

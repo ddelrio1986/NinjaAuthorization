@@ -12,7 +12,7 @@ namespace NinjaAuthorization\EntityRepository;
 
 use InvalidArgumentException;
 use NinjaAuthorization\Entity\RoleAssignment as RoleAssignmentEntity;
-use NinjaServiceLayer\EntityRepository\AbstractNeverDeletedEntityRepository;
+use NinjaServiceLayer\EntityRepository\AbstractEntityRepository;
 
 /**
  * Role Assignment
@@ -21,33 +21,29 @@ use NinjaServiceLayer\EntityRepository\AbstractNeverDeletedEntityRepository;
  *
  * @package NinjaAuthorization\EntityRepository
  */
-class RoleAssignment extends AbstractNeverDeletedEntityRepository
+class RoleAssignment extends AbstractEntityRepository
 {
 
-    /**
-     * Get Not Deleted By User ID
-     *
-     * Get all of the role assignments for the specified user that are not deleted.
-     *
-     * @throws InvalidArgumentException If an invalid user ID is provided.
-     * @param int $userId The ID of the user.
-     * @return RoleAssignmentEntity[] The role assignments.
-     */
-    public function getNotDeletedByUserId($userId)
-    {
+  /**
+   * Get By User ID
+   *
+   * Gets all of the role assignments for the specified user.
+   *
+   * @throws InvalidArgumentException If an invalid user ID is provided.
+   * @param int $userId The ID of the user.
+   * @return RoleAssignmentEntity[] The role assignments.
+   */
+  public function getByUserId($userId)
+  {
 
-        // Cleanse params.
-        $userId = (int)$userId;
-        if (0 === $userId) {
-            throw new InvalidArgumentException('An invalid user ID was provided.');
-        }
+    // Cleanse params.
+    $userId = (int)$userId;
+    if (0 === $userId)
+      throw new InvalidArgumentException("An invalid user ID was provided.");
 
-        // Return the results.
-        return $this->findBy(
-            array(
-                'user' => $userId,
-                'deleted' => 0,
-            )
-        );
-    }
+    // Return the results.
+    return $this->findBy(array(
+      "user" => $userId,
+    ));
+  }
 }

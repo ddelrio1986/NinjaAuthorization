@@ -1,42 +1,44 @@
 {
-    "name": "ddelrio1986/ninja-authorization",
-    "description": "This is a ZF2 module that will provide an authorization layer to a ZF2 application.",
-    "type": "library",
-    "homepage": "https://github.com/ddelrio1986/NinjaAuthorization",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Daniel Del Rio",
-            "email": "ddelrio1986@gmail.com",
-            "homepage": "https://github.com/ddelrio1986",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "ddelrio1986@gmail.com",
-        "issues": "https://github.com/ddelrio1986/NinjaAuthorization/issues",
-        "wiki": "https://github.com/ddelrio1986/NinjaAuthorization/wiki",
-        "source": "https://github.com/ddelrio1986/NinjaAuthorization"
-    },
-    "keywords": [
-        "zf2",
-        "acl",
-        "authorization"
-    ],
-    "autoload": {
-        "psr-0": {
-            "NinjaAuthorization\\": "src/",
-            "NinjaAuthorizationTest\\": "tests/"
-        }
-    },
-    "minimum-stability": "dev",
-    "require": {
-        "php": ">=5.3.3",
-        "ddelrio1986/ninja-service-layer": "~2.0"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.0-dev"
-        }
+  "name": "ddelrio1986/ninja-authorization",
+  "description": "This is a ZF2 module that will provide an authorization layer to a ZF2 application.",
+  "type": "library",
+  "homepage": "https://github.com/ddelrio1986/NinjaAuthorization",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Del Rio",
+      "email": "ddelrio1986@gmail.com",
+      "homepage": "https://github.com/ddelrio1986",
+      "role": "Developer"
     }
+  ],
+  "support": {
+    "email": "ddelrio1986@gmail.com",
+    "issues": "https://github.com/ddelrio1986/NinjaAuthorization/issues",
+    "wiki": "https://github.com/ddelrio1986/NinjaAuthorization/wiki",
+    "source": "https://github.com/ddelrio1986/NinjaAuthorization"
+  },
+  "keywords": [
+    "zf2",
+    "acl",
+    "authorization",
+    "doctrine",
+    "ninja service layer"
+  ],
+  "autoload": {
+    "psr-0": {
+      "NinjaAuthorization\\": "src/",
+      "NinjaAuthorizationTest\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.3.3",
+    "ddelrio1986/ninja-service-layer": "~3.0"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "3.0-dev"
+    }
+  }
 }

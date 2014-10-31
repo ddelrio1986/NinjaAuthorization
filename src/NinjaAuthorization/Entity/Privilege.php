@@ -2,7 +2,7 @@
 /**
  * Privilege
  *
- * This is the permission entity used to represent permissions.
+ * Privilege entity.
  *
  * @package NinjaAuthorization\Entity
  * @filesource
@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Privilege
  *
- * This is the permission entity used to represent permissions.
+ * Privilege entity.
  *
  * @package NinjaAuthorization\Entity
  * @ORM\Entity(repositoryClass="NinjaAuthorization\EntityRepository\Privilege")

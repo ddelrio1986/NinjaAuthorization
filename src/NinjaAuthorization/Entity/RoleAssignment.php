@@ -1,8 +1,8 @@
 <?php
 /**
- * RoleAssignment
+ * Role Assignment
  *
- * This is the permission entity used to represent permissions.
+ * Role assignment entity.
  *
  * @package NinjaAuthorization\Entity
  * @filesource
@@ -13,9 +13,9 @@ namespace NinjaAuthorization\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RoleAssignment
+ * Role Assignment
  *
- * This is the permission entity used to represent permissions.
+ * Role assignment entity.
  *
  * @package NinjaAuthorization\Entity
  * @ORM\Entity(repositoryClass="NinjaAuthorization\EntityRepository\RoleAssignment")

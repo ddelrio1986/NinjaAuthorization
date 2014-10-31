@@ -1,49 +1,51 @@
 <?php
 
+namespace NinjaAuthorization;
+
 return array(
-    'doctrine' => array(
-        'driver' => array(
-            'NinjaAuthorization_driver' => array(
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/' . 'NinjaAuthorization/Entity'),
-            ),
-            'orm_default' => array(
-                'drivers' => array(
-                    'NinjaAuthorization\Entity' => 'NinjaAuthorization_driver',
-                ),
-            ),
+  "doctrine" => array(
+    "driver" => array(
+      __NAMESPACE__ . "_driver" => array(
+        "class" => "Doctrine\ORM\Mapping\Driver\AnnotationDriver",
+        "cache" => "array",
+        "paths" => array(__DIR__ . "/../src/" . __NAMESPACE__ . "/Entity"),
+      ),
+      "orm_default" => array(
+        "drivers" => array(
+          __NAMESPACE__ . "\Entity" => __NAMESPACE__ . "_driver",
         ),
+      ),
     ),
-    'ninja_authorization' => array(
-        'admin_role_name' => 'admin',
-        'current_user_role_name' => 'current-user',
-        'guest_role_name' => 'guest',
+  ),
+  "ninja_authorization" => array(
+    "admin_role_name" => "admin",
+    "current_user_role_name" => "current-user",
+    "guest_role_name" => "guest",
+  ),
+  "service_manager" => array(
+    "factories" => array(
+
+      // Entity services.
+      __NAMESPACE__ . "\Service\Acl" => __NAMESPACE__ . "\Service\AclFactory",
+      __NAMESPACE__ . "\Service\Permission" => __NAMESPACE__ . "\Service\PermissionFactory",
+      __NAMESPACE__ . "\Service\Privilege" => __NAMESPACE__ . "\Service\PrivilegeFactory",
+      __NAMESPACE__ . "\Service\Resource" => __NAMESPACE__ . "\Service\ResourceFactory",
+      __NAMESPACE__ . "\Service\Role" => __NAMESPACE__ . "\Service\RoleFactory",
+      __NAMESPACE__ . "\Service\RoleAssignment" => __NAMESPACE__ . "\Service\RoleAssignmentFactory",
     ),
-    'service_manager' => array(
-        'factories' => array(
+    "invokables" => array(
 
-            // Entity services.
-            'NinjaAuthorization\Service\Acl' => 'NinjaAuthorization\Service\AclFactory',
-            'NinjaAuthorization\Service\Permission' => 'NinjaAuthorization\Service\PermissionFactory',
-            'NinjaAuthorization\Service\Privilege' => 'NinjaAuthorization\Service\PrivilegeFactory',
-            'NinjaAuthorization\Service\Resource' => 'NinjaAuthorization\Service\ResourceFactory',
-            'NinjaAuthorization\Service\Role' => 'NinjaAuthorization\Service\RoleFactory',
-            'NinjaAuthorization\Service\RoleAssignment' => 'NinjaAuthorization\Service\RoleAssignmentFactory',
-        ),
-        'invokables' => array(
+      // Entity factories.
+      __NAMESPACE__ . "\Entity\PermissionFactory" => __NAMESPACE__ . "\Entity\PermissionFactory",
+      __NAMESPACE__ . "\Entity\PrivilegeFactory" => __NAMESPACE__ . "\Entity\PrivilegeFactory",
+      __NAMESPACE__ . "\Entity\ResourceFactory" => __NAMESPACE__ . "\Entity\ResourceFactory",
+      __NAMESPACE__ . "\Entity\RoleFactory" => __NAMESPACE__ . "\Entity\RoleFactory",
+      __NAMESPACE__ . "\Entity\RoleAssignmentFactory" => __NAMESPACE__ . "\Entity\RoleAssignmentFactory",
 
-            // Entity factories.
-            'NinjaAuthorization\Entity\PermissionFactory' => 'NinjaAuthorization\Entity\PermissionFactory',
-            'NinjaAuthorization\Entity\PrivilegeFactory' => 'NinjaAuthorization\Entity\PrivilegeFactory',
-            'NinjaAuthorization\Entity\ResourceFactory' => 'NinjaAuthorization\Entity\ResourceFactory',
-            'NinjaAuthorization\Entity\RoleFactory' => 'NinjaAuthorization\Entity\RoleFactory',
-            'NinjaAuthorization\Entity\RoleAssignmentFactory' => 'NinjaAuthorization\Entity\RoleAssignmentFactory',
-
-            // Miscellaneous factories.
-            'NinjaAuthorization\Permissions\Acl\AclFactory' => 'NinjaAuthorization\Permissions\Acl\AclFactory',
-            'NinjaAuthorization\Permissions\Acl\Resource\GenericResourceFactory' => 'NinjaAuthorization\Permissions\Acl\Resource\GenericResourceFactory',
-            'NinjaAuthorization\Permissions\Acl\Role\GenericRoleFactory' => 'NinjaAuthorization\Permissions\Acl\Role\GenericRoleFactory',
-        ),
+      // Miscellaneous factories.
+      __NAMESPACE__ . "\Permissions\Acl\AclFactory" => __NAMESPACE__ . "\Permissions\Acl\AclFactory",
+      __NAMESPACE__ . "\Permissions\Acl\Resource\GenericResourceFactory" => __NAMESPACE__ . "\Permissions\Acl\Resource\GenericResourceFactory",
+      __NAMESPACE__ . "\Permissions\Acl\Role\GenericRoleFactory" => __NAMESPACE__ . "\Permissions\Acl\Role\GenericRoleFactory",
     ),
+  ),
 );
