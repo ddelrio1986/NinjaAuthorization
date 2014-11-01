@@ -12,7 +12,7 @@ namespace NinjaAuthorization\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use NinjaServiceLayer\Entity\AbstractWithIdEntity;
+use NinjaServiceLayer\Entity\AbstractWithIdAndDatesEntity;
 
 /**
  * Abstract Role
@@ -21,7 +21,7 @@ use NinjaServiceLayer\Entity\AbstractWithIdEntity;
  *
  * @package NinjaAuthorization\Entity
  */
-abstract class AbstractRole extends AbstractWithIdEntity
+abstract class AbstractRole extends AbstractWithIdAndDatesEntity
 {
 
   /**
