@@ -34,7 +34,7 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=5.3.3",
-    "ddelrio1986/ninja-service-layer": "~3.0"
+    "ddelrio1986/ninja-service-layer": "^3.0"
   },
   "extra": {
     "branch-alias": {
