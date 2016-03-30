@@ -102,7 +102,6 @@ class Acl extends AbstractService
         // Get all of the resources.
         $serviceLocator = $this->getServiceLocator();
         $resourceService = $serviceLocator->get('ResourceService');
-        $resource = $resourceService->getById(1);
         $resources = $resourceService->getNotDeleted();
 
         // Add the resources to the acl.
